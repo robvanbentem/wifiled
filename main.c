@@ -18,13 +18,12 @@ void delay(unsigned short ms) {
 #define LED PORTBbits.RB4
 #define MAXBUF 255
 
-unsigned char t;
-unsigned short rxindex;
-unsigned char rxbuff[MAXBUF];
-unsigned char rxstor = 0;
+volatile unsigned char t;
+volatile unsigned short rxindex;
+volatile unsigned char rxbuff[MAXBUF];
+volatile unsigned char rxstor = 0;
 
-unsigned volatile char newline = 1;
-unsigned char listen = 0;
+volatile unsigned volatile char newline = 1;
 
 void write_eeprom() {
     for (int i = 0; i < MAXBUF; i++) {
