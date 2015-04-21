@@ -106,8 +106,6 @@ void get_ip() {
 void start_server() {
     char data[] = "AT+CIPSERVER=1,6666\r";
     USART_puts(&data);
-
-    listen = 1;
 }
 
 void get_gmr() {
@@ -167,17 +165,21 @@ void interrupt rx() {
             return;
         }
 
-        t = RCREG;
+        rx_read_byte();
 
         if (t == '\n') { // end of response line
-            handle_response();
+            //handle_response();
+            newline = 1;
+            rxindex = 0;
         } else {
-            if (t != '\r') {
-                rxbuff[rxindex++] = t;
+
+            if (newline == 1) {
+                newline = 0;
+                if (t == '+') {
+                    rx_data();
+                }
             }
         }
-
-        PIR1bits.RCIF = 0;
     }
 }
 
