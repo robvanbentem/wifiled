@@ -67,7 +67,7 @@ void setup_usart() {
     TRISBbits.RB5 = 1; // RX pin is input
     TRISBbits.RB7 = 1; // TX pin is input (automatically configured)
 
-    SPBRG = 25; // set baud rate to 115200 baud (48MHz/(16*baudrate))-1
+    SPBRG = 12; // set baud rate to 115200 baud (48MHz/(16*baudrate))-1
 
     PIE1bits.RCIE = 1; // enable USART receive interrupt
     RCSTAbits.SPEN = 1; // enable USART
