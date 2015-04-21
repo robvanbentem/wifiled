@@ -151,6 +151,44 @@ void handle_response() {
     INTCONbits.GIE = 1;
 }
 
+void rx_read_byte() {
+    while (!PIR1bits.RCIF);
+    t = RCREG;
+}
+
+void rx_show_leds() {
+    for (char n = 0; n < 24; n++) {
+        rx_read_byte();
+        rxbuff[n] = t;
+    }
+    for (char n = 0; n < 24; n++) {
+        ws_write_byte(rxbuff[n]);
+    }
+
+}
+
+void rx_data() {
+
+    // disable interrupt
+    INTCONbits.GIE = 0;
+
+    // read until data
+    while (t != 0x3A) {
+        rx_read_byte();
+    }
+
+    // read the command byte
+    rx_read_byte();
+
+    // show leds
+    if (t == 0x10) {
+        rx_show_leds();
+    }
+
+    // enable interrupt
+    INTCONbits.GIE = 1;
+}
+
 void interrupt rx() {
     if (PIR1bits.RCIF == 1) {
 
