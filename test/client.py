@@ -34,7 +34,7 @@ for x in range(0, 10000):
             c = b[n]
 
             if c == '1':
-                msg += rev_bytes(random.randint(0,rmax),random.randint(0,gmax),random.randint(0,bmax))
+                msg += rev_bytes(random.randint(1,rmax),random.randint(1,gmax),random.randint(1,bmax))
             else:
                 msg += '000000'
 
