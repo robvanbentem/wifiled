@@ -223,6 +223,7 @@ void interrupt rx() {
 
 int main() {
     setup();
+    LED = 0;
     delay(5000);
 
     setup_usart();
